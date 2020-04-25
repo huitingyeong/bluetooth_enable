@@ -1,14 +1,15 @@
-# bluetooth_enable
+## Introduction
 
-A new flutter plugin project.
+BluetoothEnable is a bluetooth plugin for [Flutter](http://www.flutter.io), to programtically request turning on Bluetooth within applications.
 
-## Getting Started
+This plugin is for Android only.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Usage
+```dart
+// Request to turn on Bluetooth within an app
+BluetoothEnable.enableBluetooth.then((value){
+  //Do something with value
+  //On success, returns "true". On error, returns "false"
+    print(value);
+  });  
+```

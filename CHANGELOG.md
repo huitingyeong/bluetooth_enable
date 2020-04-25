@@ -1,3 +1,8 @@
-## 0.0.1
+## 0.0.3
+* Fix missing API call
 
-* TODO: Describe initial release.
+## 0.0.2
+* Fix returning value on action
+
+## 0.0.1
+* New release

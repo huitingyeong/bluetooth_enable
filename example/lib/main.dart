@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:bluetooth_enable/bluetooth_enable.dart';
 
 void main() => runApp(MyApp());
@@ -12,32 +9,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await BluetoothEnable.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+  Future<void> test() async{
+    BluetoothEnable.enableBluetooth.then((value){
+      print(value);
+    });    
   }
 
   @override
@@ -45,10 +26,26 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text(
+            'Turn on Bluetooth',
+          ),
+          centerTitle: true,
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Press the button to request turning on Bluetooth"),
+              SizedBox(height: 20.0),
+              RaisedButton(
+                onPressed: (() {
+                  test();
+                }),
+                child: Text('Request to turn on Bluetooth'),
+              ),
+            ],
+          ),
         ),
       ),
     );

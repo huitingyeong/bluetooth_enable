@@ -11,9 +11,8 @@ class BluetoothEnable {
     return version;
   }
 
-  Future<String> enableBluetooth() async {
-    print("enableBluetooth");
-    String enableState = await _channel.invokeMethod('enableBluetooth').then<String>((d) => d);
-    return enableState;
-  }  
+  static Future<String> get enableBluetooth async {
+    final String bluetoothState = await _channel.invokeMethod('enableBluetooth');
+    return bluetoothState;
+  } 
 }
