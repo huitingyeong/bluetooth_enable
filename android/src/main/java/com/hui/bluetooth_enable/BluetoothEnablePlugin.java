@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.content.BroadcastReceiver;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -58,7 +59,26 @@ public class BluetoothEnablePlugin implements MethodCallHandler, ActivityResultL
             {  
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BLUETOOTH);
+                System.out.println("rdddesult: " + result);
                 pendingResult = result;
+                break;
+            }
+            case "customEnable":
+            {
+                try
+                {
+                    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                    if (!mBluetoothAdapter.isEnabled()) {
+                        mBluetoothAdapter.disable(); 
+                        Thread.sleep(500); //code for dealing with InterruptedException not shown
+                        mBluetoothAdapter.enable(); 
+                    }
+                }
+                catch(InterruptedException e)
+                {
+                    System.out.println(e);
+                }             
+                result.success("true");
                 break;
             }
             default:
@@ -73,20 +93,48 @@ public class BluetoothEnablePlugin implements MethodCallHandler, ActivityResultL
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_ENABLE_BLUETOOTH){        
           if (resultCode == Activity.RESULT_OK) {
-              Log.d(TAG, "User enabled Bluetooth");
-              pendingResult.success("true");
+            Log.d(TAG, "User enabled Bluetooth");
+            System.out.println("User enabled Bluetooth");
+            pendingResult.success("true");
           }
           else{
               Log.d(TAG, "User did NOT enabled Bluetooth");
+              System.out.println("User did NOT enabled Bluetooth");
               pendingResult.success("false");
           }
         }
         return false;
     }
 
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+                        BluetoothAdapter.ERROR);
+                switch (state) {
+                    case BluetoothAdapter.STATE_OFF:
+                        System.out.println("STATE_OFF");
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_OFF:
+                        System.out.println("STATE_TURNING_OFF");
+                        break;
+                    case BluetoothAdapter.STATE_ON:
+                        System.out.println("STATE_ON");
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_ON:
+                        System.out.println("STATE_TURNING_ON");
+                        break;
+                }
+            }
+        }
+    };
+
     @Override
     public boolean onRequestPermissionsResult(
-            int requestCode, String[] permissions, int[] grantResults) {
+        int requestCode, String[] permissions, int[] grantResults) {
         System.out.println("TWO");
 
         return false;

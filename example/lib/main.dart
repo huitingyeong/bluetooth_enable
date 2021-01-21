@@ -3,22 +3,47 @@ import 'package:bluetooth_enable/bluetooth_enable.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Test",
+      home: _MyAppState(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
+class _MyAppState extends StatelessWidget {
+  Future<void> enableBT() async {
+    BluetoothEnable.enableBluetooth.then((value) {
+      print(value);
+    });
   }
 
-  Future<void> test() async{
-    BluetoothEnable.enableBluetooth.then((value){
+  Future<void> customEnableBT(BuildContext context) async {
+    String dialogTitle = "Hey! Please give me permission to use Bluetooth!";
+    bool displayDialogContent = true;
+    String dialogContent = "This app requires Bluetooth to connect to device.";
+    //or
+    // bool displayDialogContent = false;
+    // String dialogContent = "";
+    String cancelBtnText = "Nope";
+    String acceptBtnText = "Sure";
+    double dialogRadius = 10.0;
+    bool barrierDismissible = true; //
+
+    BluetoothEnable.customBluetoothRequest(
+            context,
+            dialogTitle,
+            displayDialogContent,
+            dialogContent,
+            cancelBtnText,
+            acceptBtnText,
+            dialogRadius,
+            barrierDismissible)
+        .then((value) {
       print(value);
-    });    
+    });
   }
 
   @override
@@ -27,7 +52,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Turn on Bluetooth',
+            'Bluetooth Enable Plugin',
           ),
           centerTitle: true,
         ),
@@ -40,9 +65,16 @@ class _MyAppState extends State<MyApp> {
               SizedBox(height: 20.0),
               RaisedButton(
                 onPressed: (() {
-                  test();
+                  enableBT();
                 }),
                 child: Text('Request to turn on Bluetooth'),
+              ),
+              SizedBox(height: 10.0),
+              RaisedButton(
+                onPressed: (() {
+                  customEnableBT(context);
+                }),
+                child: Text('Custom request to turn on Bluetooth'),
               ),
             ],
           ),
