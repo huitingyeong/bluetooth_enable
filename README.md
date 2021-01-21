@@ -43,23 +43,22 @@ This method calls an alert from Dart level. Depending on the user's selection, B
 ```dart
 import  'package:bluetooth_enable/bluetooth_enable.dart';
 
-Future<void>  customEnableBT(BuildContext context) async{
-	String dialogTitle =  "Hey! Please give me permission to use Bluetooth!";
-	bool displayDialogContent =  true;
-	String dialogContent =  "This app requires Bluetooth to connect to device.";
-	//or
-	// bool displayDialogContent = false;
-	// String dialogContent = "";
-	String cancelBtnText =  "Nope";
-	String acceptBtnText =  "Sure";
-	double dialogRadius =  10.0;
-	bool barrierDismissible =  true; //Enable or Disable whether dialog is dismissible on external click
+Future<void> customEnableBT(BuildContext context) async {
+  String dialogTitle = "Hey! Please give me permission to use Bluetooth!";
+  bool displayDialogContent = true;
+  String dialogContent = "This app requires Bluetooth to connect to device.";
+  //or
+  // bool displayDialogContent = false;
+  // String dialogContent = "";
+  String cancelBtnText = "Nope";
+  String acceptBtnText = "Sure";
+  double dialogRadius = 10.0;
+  bool barrierDismissible = true; //
 
-	// Request to turn on Bluetooth within an app with a custom alert dialog
-	BluetoothEnable.customBluetoothRequest(context, dialogTitle, displayDialogContent, dialogContent, cancelBtnText, acceptBtnText, dialogRadius, barrierDismissible).then((value){
-		if (result == "true"){
-			//Bluetooth has been enabled
-		}
-	});
-} 
+  BluetoothEnable.customBluetoothRequest(context, dialogTitle, displayDialogContent, dialogContent, cancelBtnText, acceptBtnText, dialogRadius, barrierDismissible).then((result) {
+    if (result == "true"){
+      //Bluetooth has been enabled
+    }
+  });
+}
 ```

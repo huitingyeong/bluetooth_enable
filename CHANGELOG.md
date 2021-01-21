@@ -1,3 +1,6 @@
+## 0.1.1
+* Fix typo
+
 ## 0.1.0
 * New Feature: Customizable alert message and button text
 
