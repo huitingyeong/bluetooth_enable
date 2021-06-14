@@ -14,12 +14,12 @@ This plugin is supported only for Android.
 import 'package:bluetooth_enable/bluetooth_enable.dart';
 
 // Request to turn on Bluetooth within an app
-BluetoothEnable.enableBluetooth.then((value){
-  if (result == "true"){
-    //Bluetooth has been enabled
+BluetoothEnable.enableBluetooth.then((result) {
+  if (result == "true") {
+    // Bluetooth has been enabled
   }
   else if (result == "false") {
-    //Bluetooth has not been enabled
+    // Bluetooth has not been enabled
   }
 });
 ```
@@ -56,7 +56,7 @@ Future<void> customEnableBT(BuildContext context) async {
   bool barrierDismissible = true; //
 
   BluetoothEnable.customBluetoothRequest(context, dialogTitle, displayDialogContent, dialogContent, cancelBtnText, acceptBtnText, dialogRadius, barrierDismissible).then((result) {
-    if (result == "true"){
+    if (result == "true") {
       //Bluetooth has been enabled
     }
   });
