@@ -64,13 +64,13 @@ class BluetoothEnable {
                 )
               : null,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(cancelBtnText),
               onPressed: () {
                 Navigator.of(context).pop("false");
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text(acceptBtnText),
               onPressed: () async {
                 String bluetoothState =
@@ -82,7 +82,7 @@ class BluetoothEnable {
         );
       },
     ).then((value) {
-      return value;
+      return value ?? "";
     });
   }
 }
