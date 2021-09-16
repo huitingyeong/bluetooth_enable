@@ -154,7 +154,6 @@ public class BluetoothEnablePlugin implements FlutterPlugin, ActivityAware, Meth
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
-        // TODO: your plugin is now attached to a Flutter experience.
         this.channel = new MethodChannel(binding.getBinaryMessenger(), "bluetooth_enable");
     }
 
@@ -165,7 +164,6 @@ public class BluetoothEnablePlugin implements FlutterPlugin, ActivityAware, Meth
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
-        // TODO: your plugin is now attached to an Activity
         this.activity = activityPluginBinding.getActivity();
         this.mBluetoothManager = (BluetoothManager) this.activity.getSystemService(Context.BLUETOOTH_SERVICE);
         this.mBluetoothAdapter = mBluetoothManager.getAdapter();
