@@ -183,14 +183,13 @@ public class BluetoothEnablePlugin implements FlutterPlugin, ActivityAware, Meth
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        // TODO: the Activity your plugin was attached to was
-        // destroyed to change configuration.
-        // This call will be followed by onReattachedToActivityForConfigChanges().
+        this.releaseResources();
     }
-
     @Override
     public void onDetachedFromActivity() {
-        // TODO: your plugin is no longer associated with an Activity.
-        // Clean up references.
+        this.releaseResources();
+    }
+    private void releaseResources() {
+        this.activity.finish();
     }
 }
