@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.content.BroadcastReceiver;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -19,7 +20,7 @@ import io.flutter.plugin.common.PluginRegistry.ActivityResultListener;
 import io.flutter.plugin.common.PluginRegistry;
 
 /** FlutterBluePlugin */
-public class BluetoothEnablePlugin implements MethodCallHandler, ActivityResultListener, PluginRegistry.RequestPermissionsResultListener {
+public class BluetoothEnablePlugin implements FlutterPlugin, MethodCallHandler, ActivityResultListener, PluginRegistry.RequestPermissionsResultListener {
     private static final String TAG = "BluetoothEnablePlugin";
     private final Registrar registrar;
     private final Activity activity;
@@ -138,5 +139,15 @@ public class BluetoothEnablePlugin implements MethodCallHandler, ActivityResultL
         System.out.println("TWO");
 
         return false;
+    }
+
+    @Override
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
+        // TODO: your plugin is now attached to a Flutter experience.
+    }
+
+    @Override
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
+        // TODO: your plugin is no longer attached to a Flutter experience.
     }
 }
