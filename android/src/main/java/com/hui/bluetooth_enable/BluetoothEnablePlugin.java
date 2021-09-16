@@ -50,6 +50,15 @@ public class BluetoothEnablePlugin implements FlutterPlugin, ActivityAware, Meth
         channel.setMethodCallHandler(this);
     }
 
+    public BluetoothEnablePlugin(){
+        System.out.println("bonsoir");
+        this.registrar = null;
+        this.activity = null;
+        this.channel = null;
+        this.mBluetoothAdapter = null;
+        this.mBluetoothManager = null;
+    }
+
     @Override
     public void onMethodCall(MethodCall call, Result result) {
         if(mBluetoothAdapter == null && !"isAvailable".equals(call.method)) {
