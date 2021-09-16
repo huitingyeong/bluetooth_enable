@@ -169,6 +169,10 @@ public class BluetoothEnablePlugin implements FlutterPlugin, ActivityAware, Meth
         this.activity = activityPluginBinding.getActivity();
         this.mBluetoothManager = (BluetoothManager) this.activity.getSystemService(Context.BLUETOOTH_SERVICE);
         this.mBluetoothAdapter = mBluetoothManager.getAdapter();
+
+        activityPluginBinding.addActivityResultListener(this);
+        activityPluginBinding.addRequestPermissionsResultListener(this);
+
         this.channel.setMethodCallHandler(this);
     }
 
